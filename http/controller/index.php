@@ -1,3 +1,42 @@
 <?php
 
-view("index.view.php");
+use core\App;
+use core\Database;
+
+
+$userId = $_SESSION["user"]["id"] ?? null;
+
+$db = App::resolve(Database::class);
+
+$results = $db->query("SELECT * from transactions where user_id = :id" ,
+[
+    "id" => $userId,
+    ])->get();
+
+$results = sortByDate($results);
+$expenses = filter($results, "expense");
+$incomes = filter($results, "income");
+
+$totalBalance = calcTotalBalance($results);
+$totalInc = calcTotalAmount($incomes);
+$totalExp = calcTotalAmount($expenses);
+
+$minInc = minimum($incomes)["amount"];
+$maxInc = maximum($incomes)["amount"];
+
+$minExp = minimum($expenses)["amount"];
+$maxExp = maximum($expenses)["amount"];
+
+
+view("index.view.php", [
+    "results" => $results,
+    "expenses" => $expenses,
+    "incomes" => $incomes,
+    "totalBalance" => $totalBalance,
+    "totalInc" => $totalInc,
+    "totalExp" => $totalExp,
+    "minInc" => $minInc,
+    "maxInc" => $maxInc,
+    "minExp" => $minExp,
+    "maxExp" => $maxExp,
+]);

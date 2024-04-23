@@ -3,10 +3,10 @@
 use core\App;
 use core\Database;
 
-//hardcode user for now
-$userId = 1;
 
+$userId = $_SESSION["user"]["id"] ?? null;
 $transId = $_POST["id"];
+$type = $_POST["type"];
 $db = App::resolve(Database::class);
 
 
@@ -25,4 +25,4 @@ $db->query("DELETE FROM transactions WHERE `id` = :id", [
 ]);
 
 
-redirect(("/expenses"));
+redirect("/{$type}s");

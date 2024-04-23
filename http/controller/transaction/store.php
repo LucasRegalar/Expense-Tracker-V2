@@ -2,11 +2,12 @@
 
 use core\App;
 use core\Database;
-use http\forms\addTransForm;
+use http\forms\TransForm;
 use core\Session;
 
 $db = App::resolve(Database::class);
-$Form = new addTransForm();
+$form = new TransForm();
+
 
 //Rose fragen, ob sicher ?
 $title = $_POST["title"];
@@ -14,12 +15,12 @@ $amount = $_POST["amount"];
 $date = $_POST["date"];
 $category = $_POST["category"];
 $description = $_POST["description"];
+$type = $_POST["type"];
+$userId = $_SESSION["user"]["id"] ?? null;
 
-//Hardcode for now
-$userId = 1;
 
-if(!$Form->validate($title, $amount, $date, $category, $description)) {
-        Session::flash("errors", $Form->getErrors());
+if(!$form->validate($title, $amount, $date, $category, $description)) {
+        Session::flash("errors", $form->getErrors());
         Session::flash("old", [
             "title"=> $title,
             "amount" => $amount,
@@ -27,7 +28,7 @@ if(!$Form->validate($title, $amount, $date, $category, $description)) {
             "category"=> $category,
             "description"=> $description,
         ]);
-        redirect("/expenses");
+        redirect("/{$type}s");
 }
 
 $db->query("
@@ -36,10 +37,10 @@ VALUES (:date, :amount, :title, :type, :description, :userId, :category)", [
     "date" => $date,
     "amount" => $amount,
     "title" => $title,
-    "type" => $_SERVER["REQUEST_URI"] === "/expenses" ? "expense" : "income",
+    "type" => $type,
     "description" => $description,
     "userId" => $userId,
     "category" => $category,
 ]);
 
-redirect("/expenses");
+redirect("/{$type}s");

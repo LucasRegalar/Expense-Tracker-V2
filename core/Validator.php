@@ -14,7 +14,7 @@ class Validator {
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function checkRequired(array $values) {
+    public static function areSet(array $values) {
         foreach ($values as $value) {
             if (!isset($_POST[$value])) {
                 return false;

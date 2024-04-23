@@ -29,5 +29,4 @@ $method = $_POST["_method"] ?? $_SERVER["REQUEST_METHOD"];
 //implement try catch?
 $router->route($uri, $method);
 
-//Delete flashed stuff
 Session::unflash();

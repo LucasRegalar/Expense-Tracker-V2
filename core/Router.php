@@ -2,6 +2,9 @@
 
 namespace core;
 
+use core\middleware\Middleware;
+
+
 class Router {
 
     protected $routes = [];
@@ -11,6 +14,7 @@ class Router {
             "uri" => $uri,
             "controller" => $controller,
             "method" => $method,
+            "middleware" => null,
         ];
     return $this;
     }
@@ -40,11 +44,23 @@ class Router {
     public function route($uri, $method) {
         foreach ($this->routes as $route) {
             if ($route["uri"] === $uri && $route["method"] === strtoupper($method)) {
+
+                if ($route["middleware"]) {
+                   Middleware::resolve($route["middleware"]);
+                }
+                
                 return require base_path("http/controller/" . $route["controller"]);
             }
         }
 
         $this->abort(Responses::NOT_FOUND);
+    }
+
+
+    public function only($key) {
+        $this->routes[array_key_last($this->routes)]["middleware"] = $key;
+        
+        return $this;
     }
 
 

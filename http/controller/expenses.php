@@ -4,8 +4,8 @@ use core\App;
 use core\Database;
 use core\Session;
 
-//hardcoding for now
-$userId = 1;
+//ist das nicht easy hackable? Oder nicht wegen dem Session file?
+$userId = $_SESSION["user"]["id"] ?? null;
 
 
 

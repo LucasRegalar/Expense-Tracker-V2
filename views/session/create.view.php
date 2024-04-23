@@ -1,8 +1,6 @@
 <?php require base_path("views/partials/head.php") ?>
 <?php require base_path("views/partials/nav.php") ?>
 
-<?php /* dd($_SESSION) */ ?>
-
 <section id="expenses-sctn">
     <div class="card pt-5">
         <div class="inner-card inner-card--tight">
@@ -12,9 +10,8 @@
 
             <div class="card--split-2-clmns">
                 <form class="form" action="/session" method="POST">
-                    <label for="email" hidden>E-Mail</label>
-                   <!--  //add  type="email" again -->
-                    <input name="email" class="inner-card--outer-card-styling" placeholder="E-Mail"
+                    <label for="email" type="email" hidden>E-Mail</label>
+                    <input name="email" class="inner-card--outer-card-styling" type="email" placeholder="E-Mail"
                         autocomplete="off" required
                         <?= isset($_SESSION["_flash"]["old"]["email"]) ? "value='{$_SESSION['_flash']['old']['email']}'" : '' ?>
                         />

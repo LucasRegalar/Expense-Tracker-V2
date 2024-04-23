@@ -12,12 +12,12 @@
 
             <div class="card--split-2-clmns">
                 <form class="form" id="expense-form" action="/expenses" method="POST">
+                    <input type="hidden" name="type" value="expense">
                     <label for="title" hidden>Expense Title</label>
                     <input name="title" class="inner-card--outer-card-styling" type="text" placeholder="Expense Title"
-                        autocomplete="off" required
+                        autocomplete="off" minlength="1" required
                         <?= isset($_SESSION["_flash"]["old"]["title"]) ? "value='{$_SESSION['_flash']['old']['title']}'" : '' ?>
                         />
-                        <!-- add minlength="5" ^ -->
                     <label for="amount" hidden>Expense Amount</label>
                     <input name="amount" class="inner-card--outer-card-styling" type="number"
                         placeholder="Expense Amount" required min="0" step="0.01" 
@@ -33,7 +33,7 @@
                         <label for="category" hidden>Salary Option</label>
                         <select name="category" class="inner-card--outer-card-styling expense-option" required>
                             <option value="" selected disabled hidden>Select Option</option>
-                            <!-- ugly as hell but a foreach loop didnt work -->
+                            <!-- ugly as hell but a foreach loop didnt work ROSE??!! :)-->
                             <option value="education"
                             <?= old("category") === "education" ? "selected" : "" ?>
                             >Education</option>
@@ -43,7 +43,7 @@
                             <option value="health"
                             <?= old("category") === "health" ? "selected" : "" ?>
                             >Health</option>
-                            <option value="subsribtions"
+                            <option value="subsriptions"
                             <?= old("category") === "subscriptions" ? "selected" : "" ?>
                             >Subsribtions</option>
                             <option value="takeaways"
@@ -62,7 +62,7 @@
                     </div>
                     <label for="description" hidden>Expense Description</label>
                     <textarea name="description" class="inner-card--outer-card-styling" placeholder="Add a Referenz"
-                        required minlength="5" maxlength="30" rows="4"><?= isset($_SESSION["_flash"]["old"]["description"]) ? "{$_SESSION['_flash']['old']['description']}" : '' ?></textarea>
+                        required minlength="1" maxlength="30" rows="4"><?= isset($_SESSION["_flash"]["old"]["description"]) ? "{$_SESSION['_flash']['old']['description']}" : '' ?></textarea>
                     <button class="add-btn" type="submit" id="add-expense-btn">Add Expense </button>
                     <p class="red-text small" style="margin-top: 1rem">
                         <?= $errors["body"] ?? "" ?>
@@ -72,7 +72,7 @@
                 <div class="inner-card__transaction-list" id="expenses-list">
                     <?php
                     foreach ($attributes["results"] as $trans) {
-                        require base_path("views/partials/transactionItem.view.php");
+                        require base_path("views/partials/list_items/transactionItem.php");
                     }
                     ?>
                 </div>

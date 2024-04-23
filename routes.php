@@ -1,15 +1,20 @@
 <?php
 
-$router->get("/", "index.php");
-$router->get("/transactions", "transactions.php");
-$router->get("/incomes", "incomes.php");
-$router->get("/expenses", "expenses.php");
+$router->get("/", "index.php")->only("auth");
+$router->get("/transactions", "transactions.php")->only("auth");
+$router->get("/incomes", "incomes.php")->only("auth");
+$router->get("/expenses", "expenses.php")->only("auth");
 
-$router->post("/expenses","transaction/store.php");
-$router->delete("/expenses", "transaction/destroy.php");
+$router->post("/expenses","transaction/store.php")->only("auth");
+$router->delete("/expenses", "transaction/destroy.php")->only("auth");
 
-$router->get("/login", "session/create.php");
-$router->post("/session", "session/store.php");
-$router->delete("/session", "session/destroy.php");
+$router->post("/incomes","transaction/store.php")->only("auth");
+$router->delete("/incomes", "transaction/destroy.php")->only("auth");
 
-$router->get("/register","registration/create.php");
+$router->get("/login", "session/create.php")->only("guest");
+$router->post("/session", "session/store.php")->only("guest");
+$router->delete("/session", "session/destroy.php")->only("auth");
+
+$router->get("/register","registration/create.php")->only("guest");
+$router->post("/register","registration/store.php")->only("guest");
+

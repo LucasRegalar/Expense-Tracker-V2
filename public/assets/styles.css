@@ -206,10 +206,11 @@ ul {
 
 .inner-card__dashboard-total-card--centered-text {
     text-align: center;
+    width: 60%;
 }
 
 .inner-card__dashboard-total-card__big-font {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
 }
 
 .inner-card__recent-history-item {
@@ -217,7 +218,7 @@ ul {
     justify-content: space-between;
     align-items: center;
     margin: 0.6rem 0rem;
-    width: 22rem;
+    max-width: 22rem;
     height: 3rem;
     padding: 0 1rem;
 }
@@ -236,6 +237,11 @@ ul {
     width: 22rem;
     height: 3rem;
     padding: 0 1rem;
+}
+.dashboard-recent-history-list-container {
+    max-height:58%;
+    overflow: auto;
+    scrollbar-color: var(--primary-card) var(--primary-background);
 }
 
 /* TRANSACTIONS */

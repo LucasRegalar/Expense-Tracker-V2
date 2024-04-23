@@ -1,8 +1,10 @@
 <?php
+
 use http\html\Icons;
 
 $dotColor = $trans["type"] === "expense" ? "dot--red" : "dot--green";
 $iconHTML = (new Icons)->find($trans["category"]);
+
 echo "
     <div class='inner-card inner-card__transaction-item-container'>
                 <div class='inner-card__transaction-item-container__icon-container'>
@@ -26,9 +28,10 @@ echo "
                     </div>
                 </div>
                 
-                <form action='/expenses' method='POST' class='delete-form'>
+                <form action='/{$trans['type']}s' method='POST' class='delete-form'>
                     <input type='hidden' name='_method' value='DELETE'>
                     <input type='hidden' name='id' value='{$trans['id']}'>
+                    <input type='hidden' name='type' value='{$trans['type']}'>
                     <button class='delete-btn' id='delete-btn-{$trans['id']}'>
                         <i class='fa-regular fa-trash-can'></i>
                     </button>
