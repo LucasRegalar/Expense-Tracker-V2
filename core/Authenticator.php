@@ -54,7 +54,7 @@ class Authenticator
             return $user;
         }
 
-        return false;
+        return null;
     }
 
 

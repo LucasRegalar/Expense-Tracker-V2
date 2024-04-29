@@ -15,7 +15,9 @@ function calcTotalBalance(array $transactions) {
     $totalExp = calcTotalAmount(filter($transactions, "expense"));
     $totalInc = calcTotalAmount(filter($transactions, "income"));
 
-    return $totalInc - $totalExp;
+    $balance = $totalInc - $totalExp;
+
+    return number_format($balance,2,".","");
 
 }
 
@@ -34,10 +36,15 @@ function filter(array $transactions, $type) {
     });
 }
 
-function minimum($transactions) {
+function minimumAmount($transactions) {
+    
+    if(count($transactions) < 1) {
+        return 0;
+    }
+    
     return array_reduce($transactions , function($carry, $item) {
-        if ($carry === null || $item["amount"] < $carry["amount"]) {
-            return $item;
+        if ($carry === INF || $item["amount"] < $carry) {
+            return $item["amount"];
         } 
     
         return $carry;
@@ -45,10 +52,15 @@ function minimum($transactions) {
 }
 
 
-function maximum($transactions) {
+function maximumAmount($transactions) {
+    
+    if(count($transactions) < 1) {
+        return 0;
+    }
+    
     return array_reduce($transactions , function($carry, $item) {
-        if ($carry === null || $item["amount"] > $carry["amount"]) {
-            return $item;
+        if ($carry === 0 || $item["amount"] > $carry) {
+            return $item["amount"];
         } 
     
         return $carry;

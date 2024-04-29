@@ -21,11 +21,11 @@ $totalBalance = calcTotalBalance($results);
 $totalInc = calcTotalAmount($incomes);
 $totalExp = calcTotalAmount($expenses);
 
-$minInc = minimum($incomes)["amount"];
-$maxInc = maximum($incomes)["amount"];
+$minInc = minimumAmount($incomes);
+$maxInc = maximumAmount($incomes);
 
-$minExp = minimum($expenses)["amount"];
-$maxExp = maximum($expenses)["amount"];
+$minExp = minimumAmount($expenses);
+$maxExp = maximumAmount($expenses);
 
 
 view("index.view.php", [

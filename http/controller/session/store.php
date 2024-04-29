@@ -8,7 +8,6 @@ $email = $_POST["email"];
 $password = $_POST["password"];
 
 $form = new LoginForm;
-//Frage Rose: Wann static? Ich könnte die Authenticator methoden auch static machen.
 $auth = new Authenticator;
 
 

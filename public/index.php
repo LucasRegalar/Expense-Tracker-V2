@@ -19,7 +19,8 @@ require base_path("bootstrap.php");
 require base_path("http/utilities.php");
 
 $router = new Router();
-$routes = require base_path("routes.php");
+require base_path("routes/web.php");
+require base_path("routes/api.php");
 
 
 

@@ -53,7 +53,7 @@ class Router {
             }
         }
 
-        $this->abort(Responses::NOT_FOUND);
+        $this->abort(Responses::NotFound->value);
     }
 
 

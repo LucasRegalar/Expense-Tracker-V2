@@ -33,3 +33,14 @@ function redirect ($path) {
 function old($key, $default = null) {
     return $_SESSION["_flash"]["old"][$key] ?? $default;
 }
+
+function sendResponse(array $data)
+{
+    http_response_code($data["code"]);
+    header("Content-Type: application/json");
+    echo json_encode([
+        "message" => $data["message"],
+        "error" => $data["error"]
+    ]);
+    exit();
+}

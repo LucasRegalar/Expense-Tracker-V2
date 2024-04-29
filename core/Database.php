@@ -42,7 +42,7 @@ class Database {
         $result = $this->find();
 
         if (!$result) {
-            abort(Responses::NOT_FOUND);
+            abort(Responses::NotFound);
         }
 
         return $result;

@@ -33,7 +33,6 @@
                         <label for="category" hidden>Salary Option</label>
                         <select name="category" class="inner-card--outer-card-styling expense-option" required>
                             <option value="" selected disabled hidden>Select Option</option>
-                            <!-- ugly as hell but a foreach loop didnt work ROSE??!! :)-->
                             <option value="education"
                             <?= old("category") === "education" ? "selected" : "" ?>
                             >Education</option>

@@ -85,4 +85,5 @@ $totalPlusOrMinus = $totalBalance < 0 ? "" : "+";
 
 
 <?php require base_path("views/partials/footer.php") ?>
-<?php require base_path("views/partials/chart.php") ?>
+<?php /* require base_path("views/partials/chart.php") */ ?>
+<script src="assets/js/chart.js"></script>
