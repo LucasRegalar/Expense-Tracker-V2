@@ -11,13 +11,13 @@ $userId = $_SESSION["user"]["id"] ?? null;
 
 $db = App::resolve(Database::class);
 
-$results = $db->query("SELECT * from transactions where user_id = :id and type = :type" ,
+$results = $db->query("SELECT * from transactions where user_id = :id and type = :type ORDER BY date DESC " ,
 [
     "id" => $userId,
     "type" => "expense"
     ])->get();
 
-$results = sortByDate($results);
+
 $totalExp = calcTotalAmount($results);
 
 

@@ -34,13 +34,14 @@ function old($key, $default = null) {
     return $_SESSION["_flash"]["old"][$key] ?? $default;
 }
 
-function sendResponse(array $data)
+
+function sendResponse($code = 200, $message = "", $error = "")
 {
-    http_response_code($data["code"]);
+    http_response_code($code);
     header("Content-Type: application/json");
     echo json_encode([
-        "message" => $data["message"],
-        "error" => $data["error"]
+        "message" => $message,
+        "error" => $error,
     ]);
     exit();
 }

@@ -12,7 +12,7 @@ $totalPlusOrMinus = $totalBalance < 0 ? "" : "+";
     <div class="card card--split-2-clmns">
         <div class="card--split-2-clmns__left-clmn">
             <h2>All Transactions</h2>
-            <div class="inner-card inner-card__chart">
+            <div id="chart-container" class="inner-card inner-card__chart">
                 <canvas id="dashboard-chart"></canvas>
             </div>
             <div class="inner-card__dashboard-total-card-flex-container">

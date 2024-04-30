@@ -9,13 +9,12 @@ $userId = $_SESSION["user"]["id"] ?? null;
 
 $db = App::resolve(Database::class);
 
-$results = $db->query("SELECT * from transactions where user_id = :id and type = :type" ,
+$results = $db->query("SELECT * from transactions where user_id = :id and type = :type ORDER BY date DESC" ,
 [
     "id" => $userId,
     "type" => "income"
     ])->get();
     
-$results = sortByDate($results);
 $totalInc = calcTotalAmount($results);
 
 

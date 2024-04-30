@@ -1,13 +1,27 @@
 const dashboardChart = document.getElementById("dashboard-chart");
+const chartContainer = document.getElementById("chart-container");
 
 async function getChartData() {
-    const response = await fetch("/api/transactions");
-    const data = await response.json();
-    return data;
+    try {
+        const response = await fetch("/api/transactions");
+        if (!response.ok) {
+            throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
 }
 
 async function createChart() {
-    const data = await getChartData();
+    try {
+        const data = await getChartData();
+        if(!data) {
+            throw new Error("No Data found.")
+        }
+    
 
     const results = data["results"];
     const expensesObj = data["expenses"];
@@ -36,16 +50,16 @@ async function createChart() {
         })
         return labels;
     });
-    
+
     const buildData = ((labels, arr) => {
-    
+
         const labelsAndDataArr = labels.map((element) => {
             return {
                 date: element,
                 amount: 0,
             }
         })
-    
+
         arr.forEach((element) => {
             if (labels.includes(element.date)) {
                 const index = labels.indexOf(element.date);
@@ -55,13 +69,13 @@ async function createChart() {
         const cleanDataArr = labelsAndDataArr.map((element) => element.amount);
         return cleanDataArr
     })
-    
+
     const labels = getLabels();
     const expenseData = buildData(labels, expensesArr);
     const incomesData = buildData(labels, incomesArr);
-    
-    
-    
+
+
+
     const chart = new Chart(dashboardChart, {
         type: 'line',
         data: {
@@ -94,6 +108,12 @@ async function createChart() {
         },
     })
     return chart;
+
+    } catch (error) {
+        console.error("Caught the error", error);
+        chartContainer.innerHTML = "No Data Found. Can not display Graph.";
+        chartContainer.style.padding = "100px 0"
+    }
 }
 
 

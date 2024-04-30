@@ -17,7 +17,7 @@ async function register() {
         });
 
         if (!response.ok && response.status === 404) {
-            throw new Error("Response not successfull. Server Problem.")
+            throw new Error("Response not successfull. Page not found.")
         }
 
         const data = await response.json();

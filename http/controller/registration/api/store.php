@@ -22,39 +22,38 @@ Session::flash("old", [
 
 //Validate Input
 if (!$form->validate($email, $password, $username)) {
-    sendResponse([
-        "code" => Responses::BadReuest->value,
-        "message" => "Validation Error.",
-        "error" => "validation",
-    ]);
+    sendResponse(
+        Responses::BadReuest->value,
+        "Validation Error.",
+        "validation",
+    );
 }
 
 //Check if email already exists
 $user = $auth->findUser("email", $email);
 if ($user) {
-    sendResponse([
-        "code" => Responses::Conflict->value,
-        "message" => "Email already exists.",
-        "error" => "email",
-    ]);
+    sendResponse(
+        Responses::Conflict->value,
+        "Email already exists.",
+        "email",
+    );
 }
 
 //check if usermame already exists
 if ($auth->findUser("name", $username)) {
     $form->addError("Sorry, the username is already taken.");
     Session::flash("errors", $form->getErrors());
-    sendResponse([
-        "code" => Responses::Conflict->value,
-        "message" => "Username already exists.",
-        "error" => "username",
-    ]);
+    sendResponse(
+        Responses::Conflict->value,
+        "Username already exists.",
+        "username",
+    );
 }
 
 //register user
 $auth->register($email, $username, $password);
 http_response_code(Responses::Created->value); //created = 201
-sendResponse([
-    "code" => Responses::Created->value,
-    "message" => "Registration successful.",
-    "error" => "",
-]);
+sendResponse(
+    Responses::Created->value,
+    "Registration successful.",
+);

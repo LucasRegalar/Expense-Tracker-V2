@@ -8,12 +8,11 @@ $userId = $_SESSION["user"]["id"] ?? null;
 
 $db = App::resolve(Database::class);
 
-$results = $db->query("SELECT * from transactions where user_id = :id" ,
+$results = $db->query("SELECT * from transactions where user_id = :id ORDER BY date DESC" ,
 [
     "id" => $userId,
     ])->get();
 
-$results = sortByDate($results);
 $expenses = filter($results, "expense");
 $incomes = filter($results, "income");
 

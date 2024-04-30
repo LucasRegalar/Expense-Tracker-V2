@@ -21,6 +21,7 @@ function calcTotalBalance(array $transactions) {
 
 }
 
+//not really needed anymore, because it is better to order within the MySQL query
 function sortByDate(array $transactions) {
     usort($transactions, function($a, $b) {
         return strtotime($b["date"]) - strtotime($a["date"]);
